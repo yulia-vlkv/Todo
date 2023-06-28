@@ -83,5 +83,6 @@ struct AddTodoView: View {
 struct AddTodoView_Previews: PreviewProvider {
     static var previews: some View {
         AddTodoView()
+            .previewDevice("iPhone 11 Pro")
     }
 }

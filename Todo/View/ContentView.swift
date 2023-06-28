@@ -13,71 +13,60 @@ struct ContentView: View {
     @State private var showingAddTodoView: Bool = false
     
     @Environment(\.managedObjectContext) private var viewContext
-
+    
     @FetchRequest(entity: Todo.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \Todo.name, ascending: true)],
-        animation: .default)
+                  sortDescriptors: [NSSortDescriptor(keyPath: \Todo.name, ascending: true)],
+                  animation: .default)
     private var todos: FetchedResults<Todo>
     
     // MARK: - Body
     var body: some View {
         NavigationView {
             List {
-                ForEach(todos) { todo in
-                    NavigationLink {
-                        Text("Item at \(todo.name!)")
-                    } label: {
-                        Text(todo.name!)
+                ForEach(self.todos, id: \.self) { todo in
+                    HStack {
+                        Text(todo.name ?? "Unknown")
+                        Spacer()
+                        Text(todo.priority ?? "Unknown")
                     }
-                }
-                .onDelete(perform: deleteItems)
+                } //: For each
+                .onDelete(perform: deleteTodo)
             } //: List
             .navigationBarTitle("Todo", displayMode: .inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: {
-                        self.showingAddTodoView.toggle()
-                    }) {
-                        Label("Add Item", systemImage: "plus")
-                    } //: Add button
+            .navigationBarItems(
+                leading: EditButton(),
+                trailing: Button(action: {
+                    self.showingAddTodoView.toggle()
+                }) {
+                    Image(systemName: "plus")
+                } //: Add button
                     .sheet(isPresented: $showingAddTodoView) {
                         AddTodoView().environment(\.managedObjectContext, self.viewContext)
                     }
-                }
-            }
-            Text("Select an item")
+            )
+        } //: Navigation
+    }
+    // MARK: - Functions
+    
+    private func deleteTodo(at offsets: IndexSet) {
+        for index in offsets {
+            let todo = todos[index]
+            viewContext.delete(todo)
         }
-    } //: Navigation
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { todos[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+        
+        do {
+            try viewContext.save()
+        } catch {
+            print(error)
         }
     }
 }
 
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
-
 // MARK: - Preview
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView().environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+            .previewDevice("iPhone 11 Pro")
     }
 }
