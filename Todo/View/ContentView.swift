@@ -22,28 +22,34 @@ struct ContentView: View {
     // MARK: - Body
     var body: some View {
         NavigationView {
-            List {
-                ForEach(self.todos, id: \.self) { todo in
-                    HStack {
-                        Text(todo.name ?? "Unknown")
-                        Spacer()
-                        Text(todo.priority ?? "Unknown")
-                    }
-                } //: For each
-                .onDelete(perform: deleteTodo)
-            } //: List
-            .navigationBarTitle("Todo", displayMode: .inline)
-            .navigationBarItems(
-                leading: EditButton(),
-                trailing: Button(action: {
-                    self.showingAddTodoView.toggle()
-                }) {
-                    Image(systemName: "plus")
-                } //: Add button
-                    .sheet(isPresented: $showingAddTodoView) {
-                        AddTodoView().environment(\.managedObjectContext, self.viewContext)
-                    }
-            )
+            ZStack {
+                List {
+                    ForEach(self.todos, id: \.self) { todo in
+                        HStack {
+                            Text(todo.name ?? "Unknown")
+                            Spacer()
+                            Text(todo.priority ?? "Unknown")
+                        }
+                    } //: For each
+                    .onDelete(perform: deleteTodo)
+                } //: List
+                .navigationBarTitle("Todo", displayMode: .inline)
+                .navigationBarItems(
+                    leading: EditButton(),
+                    trailing: Button(action: {
+                        self.showingAddTodoView.toggle()
+                    }) {
+                        Image(systemName: "plus")
+                    } //: Add button
+                        .sheet(isPresented: $showingAddTodoView) {
+                            AddTodoView().environment(\.managedObjectContext, self.viewContext)
+                        }
+                )
+                // MARK: - No todo items
+                if todos.count == 0 {
+                    EmptyListView()
+                }
+            }//: Zstack
         } //: Navigation
     }
     // MARK: - Functions
