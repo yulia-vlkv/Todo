@@ -10,22 +10,24 @@ import SwiftUI
 struct SettingsView: View {
     // MARK: - Properties
     
+    @Environment(\.presentationMode) var presentationMode
+    
     // MARK: - Body
     var body: some View {
         NavigationView {
             VStack(alignment: .center, spacing: 0) {
                 // MARK: - Form
                 Form {
-
+                    
                     
                     // MARK: - Section3
                     
                     Section(header: Text("Follow us on social media")) {
-                      FormRowLinkView(icon: "globe", color: Color.pink, text: "Website", link: "https://swiftuimasterclass.com")
-                      FormRowLinkView(icon: "link", color: Color.blue, text: "Twitter", link: "https://twitter.com/robertpetras")
-                      FormRowLinkView(icon: "play.rectangle", color: Color.green, text: "Courses", link: "https://www.udemy.com/user/robert-petras")
+                        FormRowLinkView(icon: "globe", color: Color.pink, text: "Website", link: "https://swiftuimasterclass.com")
+                        FormRowLinkView(icon: "link", color: Color.blue, text: "Twitter", link: "https://twitter.com/robertpetras")
+                        FormRowLinkView(icon: "play.rectangle", color: Color.green, text: "Courses", link: "https://www.udemy.com/user/robert-petras")
                     } //: Section 3
-                      .padding(.vertical, 3)
+                    .padding(.vertical, 3)
                     
                     // MARK: - Section 4
                     
@@ -40,17 +42,24 @@ struct SettingsView: View {
                 } //: Form
                 .listStyle(GroupedListStyle())
                 .environment(\.horizontalSizeClass, .regular)
-            
+                
                 // MARK: - Footer
                 
                 Text("Copyright © All rights reserved.\nBetter Apps ♡ Less Code")
-                  .multilineTextAlignment(.center)
-                  .font(.footnote)
-                  .padding(.top, 6)
-                  .padding(.bottom, 8)
-                  .foregroundColor(Color.secondary)
-
+                    .multilineTextAlignment(.center)
+                    .font(.footnote)
+                    .padding(.top, 6)
+                    .padding(.bottom, 8)
+                    .foregroundColor(Color.secondary)
+                
             } //: VStack
+            .navigationBarItems(trailing:
+                                    Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }) {
+                Image(systemName: "xmark")
+            }
+            )
             .navigationBarTitle("Settings", displayMode: .inline)
             .background(Color("ColorBackground").edgesIgnoringSafeArea(.all))
         } //: Navigation
