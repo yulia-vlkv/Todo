@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EFB280922A4DCE6A006D1342 /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFB280912A4DCE6A006D1342 /* EmptyListView.swift */; };
+		EFBD8E4E2A51736A00429A07 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBD8E4D2A51736A00429A07 /* SettingsView.swift */; };
 		EFFF5D922A49F82800B5C797 /* TodoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF5D912A49F82800B5C797 /* TodoApp.swift */; };
 		EFFF5D942A49F82800B5C797 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFF5D932A49F82800B5C797 /* ContentView.swift */; };
 		EFFF5D962A49F82900B5C797 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFFF5D952A49F82900B5C797 /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		EFB280902A4DCCBA006D1342 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		EFB280912A4DCE6A006D1342 /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
+		EFBD8E4D2A51736A00429A07 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		EFFF5D8E2A49F82800B5C797 /* Todo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFFF5D912A49F82800B5C797 /* TodoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoApp.swift; sourceTree = "<group>"; };
 		EFFF5D932A49F82800B5C797 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				EFFF5D932A49F82800B5C797 /* ContentView.swift */,
 				EFFF5DA72A49F92000B5C797 /* AddTodoView.swift */,
 				EFB280912A4DCE6A006D1342 /* EmptyListView.swift */,
+				EFBD8E4D2A51736A00429A07 /* SettingsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFBD8E4E2A51736A00429A07 /* SettingsView.swift in Sources */,
 				EFFF5D9B2A49F82900B5C797 /* Persistence.swift in Sources */,
 				EFFF5D942A49F82800B5C797 /* ContentView.swift in Sources */,
 				EFB280922A4DCE6A006D1342 /* EmptyListView.swift in Sources */,
