@@ -16,8 +16,30 @@ struct SettingsView: View {
             VStack(alignment: .center, spacing: 0) {
                 // MARK: - Form
                 Form {
-                    Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+
+                    
+                    // MARK: - Section3
+                    
+                    Section(header: Text("Follow us on social media")) {
+                      FormRowLinkView(icon: "globe", color: Color.pink, text: "Website", link: "https://swiftuimasterclass.com")
+                      FormRowLinkView(icon: "link", color: Color.blue, text: "Twitter", link: "https://twitter.com/robertpetras")
+                      FormRowLinkView(icon: "play.rectangle", color: Color.green, text: "Courses", link: "https://www.udemy.com/user/robert-petras")
+                    } //: Section 3
+                      .padding(.vertical, 3)
+                    
+                    // MARK: - Section 4
+                    
+                    Section(header: Text("About the app")) {
+                        FormRowStaticView(icon: "gear", firstText: "Application", secondText: "Todo")
+                        FormRowStaticView(icon: "checkmark.seal", firstText: "Compatibility", secondText: "iPhone, iPad")
+                        FormRowStaticView(icon: "keyboard", firstText: "Developer", secondText: "Iuliia")
+                        FormRowStaticView(icon: "paintbrush", firstText: "Designer", secondText: "Robert Petras")
+                        FormRowStaticView(icon: "flag", firstText: "Version", secondText: "1.5.0")
+                    } //: Section 4
+                    .padding(.vertical, 3)
                 } //: Form
+                .listStyle(GroupedListStyle())
+                .environment(\.horizontalSizeClass, .regular)
             
                 // MARK: - Footer
                 
@@ -30,6 +52,7 @@ struct SettingsView: View {
 
             } //: VStack
             .navigationBarTitle("Settings", displayMode: .inline)
+            .background(Color("ColorBackground").edgesIgnoringSafeArea(.all))
         } //: Navigation
     }
 }
