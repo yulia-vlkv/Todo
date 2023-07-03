@@ -14,6 +14,8 @@ struct ContentView: View {
     @State private var animatingButton: Bool = false
     @State private var showingSettingsView: Bool = false
     
+    @EnvironmentObject var iconSettings: IconNames
+    
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(entity: Todo.entity(),
@@ -44,9 +46,10 @@ struct ContentView: View {
                         Image(systemName: "paintbrush")
                     } //: Add button
                         .sheet(isPresented: $showingSettingsView) {
-                            SettingsView()
+                            SettingsView().environmentObject(self.iconSettings)
                         }
                 )
+                
                 // MARK: - No todo items
                 if todos.count == 0 {
                     EmptyListView()
