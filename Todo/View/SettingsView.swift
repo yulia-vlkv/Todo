@@ -13,6 +13,12 @@ struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var iconSettings: IconNames
     
+    // MARK: - Theme
+    
+    let themes: [Theme] = themeData
+    @ObservedObject var theme = ThemeSettings()
+    @State private var isThemeChanged: Bool = false
+    
     // MARK: - Body
     var body: some View {
         NavigationView {
@@ -70,6 +76,43 @@ struct SettingsView: View {
                         }
                     } //: Section 1
                     .padding(.vertical, 3)
+                    
+                    // MARK: - Section 2
+                    
+                    Section(header:
+                      HStack {
+                        Text("Choose the app theme")
+                        Image(systemName: "circle.fill")
+                          .resizable()
+                          .frame(width: 10, height: 10)
+                          .foregroundColor(themes[self.theme.themeSettings].themeColor)
+                      }
+                    ) {
+                      List {
+                        ForEach(themes, id: \.id) { item in
+                          Button(action: {
+                            self.theme.themeSettings = item.id
+                            UserDefaults.standard.set(self.theme.themeSettings, forKey: "Theme")
+                            self.isThemeChanged.toggle()
+                          }) {
+                            HStack {
+                              Image(systemName: "circle.fill")
+                                .foregroundColor(item.themeColor)
+                              Text(item.themeName)
+                            }
+                          } //: Button
+                            .accentColor(Color.primary)
+                        }
+                      }
+                    } //: Section 2
+                      .padding(.vertical, 3)
+                      .alert(isPresented: $isThemeChanged) {
+                        Alert(
+                          title: Text("SUCCESS!"),
+                          message: Text("App has been changed to the \(themes[self.theme.themeSettings].themeName)!"),
+                          dismissButton: .default(Text("OK"))
+                        )
+                    }
                     
                     // MARK: - Section3
                     
