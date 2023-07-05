@@ -16,7 +16,7 @@ struct SettingsView: View {
     // MARK: - Theme
     
     let themes: [Theme] = themeData
-    @ObservedObject var theme = ThemeSettings()
+    @ObservedObject var theme = ThemeSettings.shared
     @State private var isThemeChanged: Bool = false
     
     // MARK: - Body
@@ -158,6 +158,7 @@ struct SettingsView: View {
             .navigationBarTitle("Settings", displayMode: .inline)
             .background(Color("ColorBackground").edgesIgnoringSafeArea(.all))
         } //: Navigation
+        .accentColor(themes[self.theme.themeSettings].themeColor)
     }
 }
 

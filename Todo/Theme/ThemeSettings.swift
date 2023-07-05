@@ -17,4 +17,7 @@ class ThemeSettings: ObservableObject {
         }
     }
     
+    private init() {}
+    public static let
+    shared = ThemeSettings()
 }
