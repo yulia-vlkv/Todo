@@ -94,6 +94,7 @@ struct AddTodoView: View {
             }
         } //: Navigation
         .accentColor(themes[self.theme.themeSettings].themeColor)
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

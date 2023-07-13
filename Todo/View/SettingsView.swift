@@ -159,6 +159,7 @@ struct SettingsView: View {
             .background(Color("ColorBackground").edgesIgnoringSafeArea(.all))
         } //: Navigation
         .accentColor(themes[self.theme.themeSettings].themeColor)
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
