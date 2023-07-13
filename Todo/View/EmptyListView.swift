@@ -28,20 +28,27 @@ struct EmptyListView: View {
         "Each night schedule for tomorrow."
     ]
     
+    // MARK: - Theme
+    
+    let themes: [Theme] = themeData
+    @ObservedObject var theme = ThemeSettings.shared
     
     // MARK: - Body
     var body: some View {
         ZStack {
             VStack(alignment: .center, spacing: 20) {
                 Image(images.randomElement() ?? self.images[0])
+                    .renderingMode(.template)
                     .resizable()
                     .scaledToFit()
                     .frame(minWidth: 256, idealWidth: 280, maxWidth: 360, minHeight: 256, idealHeight: 280, maxHeight: 360, alignment: .center)
                     .layoutPriority(1)
+                    .foregroundColor(themes[self.theme.themeSettings].themeColor)
             
                 Text(tips.randomElement() ?? tips[0])
                     .layoutPriority(0.5)
                     .font(.system(.headline, design: .rounded))
+                    .foregroundColor(themes[self.theme.themeSettings].themeColor)
             } //: Vstack
             .padding(.horizontal)
             .opacity(isAnimated ? 1: 0)

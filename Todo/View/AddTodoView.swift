@@ -23,14 +23,23 @@ struct AddTodoView: View {
     @State private var errorTitle: String = ""
     @State private var errorMessage: String = ""
     
+    // MARK: - Theme
+    
+    let themes: [Theme] = themeData
+    @ObservedObject var theme = ThemeSettings.shared
+    
     // MARK: - Body
 
     var body: some View {
         NavigationView {
             VStack {
-                Form{
+                VStack(alignment: .leading, spacing: 20) {
                     // MARK: - Todo name
                     TextField("Todo", text:  $name)
+                        .padding()
+                        .background(Color(UIColor.tertiarySystemFill))
+                        .cornerRadius(9)
+                        .font(.system(size: 24, weight: .bold, design: .default))
                     
                     // MARK: - Todo priority
                     Picker("Priority", selection: $priority) {
@@ -47,7 +56,7 @@ struct AddTodoView: View {
                             todo.priority = self.priority
                             do {
                                 try self.viewContext.save()
-                                print("NEW TODO: \(String(describing: todo.name))")
+//                                print("NEW TODO: \(String(describing: todo.name))")
                             } catch {
                                 let nsError = error as NSError
                                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
@@ -61,8 +70,16 @@ struct AddTodoView: View {
                         self.presentationMode.wrappedValue.dismiss()
                     }, label: {
                         Text("Save")
+                            .font(.system(size: 24, weight: .bold, design: .default))
+                            .padding()
+                            .frame(minWidth: 0, maxWidth: .infinity)
+                            .background(themes[self.theme.themeSettings].themeColor)
+                            .cornerRadius(9)
+                            .foregroundColor(Color.white)
                     }) //: Save button 
-                } //: Form
+                } //: VStack
+                .padding(.horizontal)
+                .padding(.vertical, 30)
                 
                 Spacer()
             } //: Vstack
@@ -76,6 +93,7 @@ struct AddTodoView: View {
                 Alert(title: Text(errorTitle), message: Text(errorMessage ), dismissButton: .default(Text("OK")))
             }
         } //: Navigation
+        .accentColor(themes[self.theme.themeSettings].themeColor)
     }
 }
 
