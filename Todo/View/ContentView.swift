@@ -114,6 +114,7 @@ struct ContentView: View {
             )
         } //: Navigation
         .accentColor(themes[self.theme.themeSettings].themeColor)
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     // MARK: - Functions
     
